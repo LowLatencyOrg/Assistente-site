@@ -1,0 +1,18 @@
+
+services:
+  banco:
+    image: mysql:latest
+    container_name: lowlatency-banco
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+    volumes:
+      - /dados/mysql:/var/lib/mysql
+      - ${BASE_DIR}/Banco-de-dados/script-low-latency.sql:/docker-entrypoint-initdb.d/01-init.sql:ro
+    networks:
+      - lowlatency-net
+
+networks:
+  lowlatency-net:
+    name: lowlatency-net
+    driver: bridge
