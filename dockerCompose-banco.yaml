@@ -11,6 +11,8 @@ services:
       - ${BASE_DIR}/Banco-de-dados/script-low-latency.sql:/docker-entrypoint-initdb.d/01-init.sql:ro
     networks:
       - lowlatency-net
+    ports:
+      -"3306:3306"
 
 networks:
   lowlatency-net:
