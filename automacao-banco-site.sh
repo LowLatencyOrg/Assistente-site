@@ -60,15 +60,17 @@ sudo docker run -d \
     -v "$HOME/low-latency/Banco-de-dados/script-low-latency.sql:/docker-entrypoint-initdb.d/01-init.sql:ro" \
     mysql:latest
 
-unset senha
-
 echo "Container MySQL iniciado."
 
-docker exec lowlatency-banco mysql -u root -p"$senha" -e "
+sleep 5
+
+sudo docker exec lowlatency-banco mysql -u root -p"$senha" -e "
 CREATE USER IF NOT EXISTS 'dba_user'@'%' IDENTIFIED BY '12345';
 GRANT ALL PRIVILEGES ON lowLatency.* TO 'dba_user'@'%';
 FLUSH PRIVILEGES;
 "
+
+unset senha
 
 echo "Usuário do site configurado!"
 
