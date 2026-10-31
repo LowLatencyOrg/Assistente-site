@@ -104,11 +104,12 @@ DOCKERFILE_EOF
     echo "Iniciando container da API..."
 
     sudo docker run -d \
-        --name lowlatency-api \
-        --network lowlatency-net \
-        --restart unless-stopped \
-        -p 3333:3333 \
-        low-latency-imagem
+    --name lowlatency-api \
+    --network lowlatency-net \
+    --restart unless-stopped \
+    --env-file .env.dev \
+    -p 3333:3333 \
+    low-latency-imagem
 
     echo "API iniciada."
     echo "Teste usando http://IP-PUBLICO-DA-EC2:3333"
