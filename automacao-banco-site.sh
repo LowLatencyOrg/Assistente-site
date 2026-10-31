@@ -64,6 +64,14 @@ unset senha
 
 echo "Container MySQL iniciado."
 
+docker exec lowlatency-banco mysql -u root -p"$senha" -e "
+CREATE USER IF NOT EXISTS 'dba_user'@'%' IDENTIFIED BY '12345';
+GRANT ALL PRIVILEGES ON lowLatency.* TO 'dba_user'@'%';
+FLUSH PRIVILEGES;
+"
+
+echo "Usuário do site configurado!"
+
 read -r -p "Deseja executar o site/API? [s/n]: " resposta
 
 if [[ "$resposta" =~ ^[sS]$ ]]; then
